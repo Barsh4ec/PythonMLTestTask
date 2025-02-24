@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чат</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Чат</h1>
+    <div id="chat-box">
+        {% for message in messages %}
+            <p class="user-message"><strong>Користувач:</strong> {{ message.user }}</p>
+            <p class="bot-message"><strong>Бот:</strong> {{ message.bot|safe }}</p>
+        {% endfor %}
+    </div>
+    <form method="post">
+        <input type="text" name="message" required>
+        <button type="submit">Надіслати</button>
+    </form>
+</body>
+</html>
