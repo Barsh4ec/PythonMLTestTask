@@ -8,6 +8,7 @@ ___
 
 Python3 must be already installed.
 
+Download Ollama "deepseek-r1:7b" model on your computer
 ```shell
 git clone https://github.com/Barsh4ec/PythonMLTestTask
 python3 -m venv venv
