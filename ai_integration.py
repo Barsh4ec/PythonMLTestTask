@@ -1,8 +1,9 @@
-import os.path
-
 import chromadb
 from sentence_transformers import SentenceTransformer
 import pandas as pd
+
+import uuid
+
 
 client = chromadb.PersistentClient(path="./chroma_db")
 collection = client.get_or_create_collection(name="knowledge_base")
@@ -15,6 +16,7 @@ def process_basic_knowledge(csv_path):
     cocktails = []
     embeddings = []
     metadatas = []
+
     for _, row in df.iterrows():
         ids.append(f"{row['name'].replace(' ', '_').lower()}")
         cocktails.append(convert_cocktail(row.to_dict()))
@@ -38,10 +40,11 @@ def process_basic_knowledge(csv_path):
     print(f"Added {csv_path} to ChromaDB")
 
 
-def add_user_knowledge(text, ids):
+def add_user_knowledge(text):
+    unique_id = str(uuid.uuid4())
     embedding = model.encode(text).tolist()
     collection.add(
-        ids=[ids],
+        ids=[unique_id],
         documents=[text],
         embeddings=[embedding],
         metadatas=[{"source": "user_input"}]
@@ -50,8 +53,6 @@ def add_user_knowledge(text, ids):
 
 
 def convert_cocktail(row):
-
     text = f"Name: {row['name']} (Alcoholic: {row['alcoholic']}): {row['ingredients']}"
-
     return text
 

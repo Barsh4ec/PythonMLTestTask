@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Чат</h1>
+    <h1>Cocktail Advisor Chat</h1>
     <div id="chat-box">
         {% for message in messages %}
-            <p class="user-message"><strong>Користувач:</strong> {{ message.user }}</p>
-            <p class="bot-message"><strong>Бот:</strong> {{ message.bot|safe }}</p>
+            <p class="user-message"><strong>User:</strong> {{ message.user | safe }}</p>
+            <p class="bot-message"><strong>Bot:</strong> {{ message.bot | safe }}</p>
         {% endfor %}
     </div>
     <form method="post">
