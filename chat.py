@@ -61,9 +61,15 @@ def process_message(message: str) -> str:
     retrieved_text = retrieve_knowledge(message)
     response = ollama.chat(
         model="deepseek-r1:7b",
-        messages=[{
-            "role": "user",
-            "content": f"{message}. Here is some info {retrieved_text}. Remember that you are a bartender bot"
-        }]
+        messages=[
+            {
+                "role": "system",
+                "content": "You are AI bartender that helps user to choose cocktails."
+            },
+            {
+                "role": "user",
+                "content": f"{message}. Here is some info {retrieved_text}"
+            }
+        ]
     )
     return response["message"]["content"]
